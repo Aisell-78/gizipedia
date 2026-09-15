@@ -246,7 +246,7 @@
       foodCardsGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 48px 16px; color: var(--ink-muted); background: #ffffff; border-radius: var(--radius-md); border: 1px solid var(--line-hairline);">
           <h3 style="font-size: 15px; color: var(--ink-primary); margin-bottom: 4px; font-weight: 700;">Pangan tidak ditemukan</h3>
-          <p style="font-size: 12px; color: var(--ink-secondary);">Coba kata kunci lain atau gunakan tombol <strong>"Entri Mandiri"</strong>.</p>
+          <p style="font-size: 12px; color: var(--ink-secondary);">Coba kata kunci lain atau gunakan tombol <strong>"+ Tambah Menu Sendiri"</strong>.</p>
         </div>
       `;
       return;
@@ -681,7 +681,7 @@
     renderCatalog();
     closeCustomModal();
 
-    showToast(`${nama} ditambahkan ke pustaka`);
+    showToast(`${nama} berhasil disimpan`);
   }
 
   // ==================== EVENT LISTENERS ====================

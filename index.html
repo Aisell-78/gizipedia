@@ -184,7 +184,7 @@
 
           <button type="button" class="btn-solid" id="btn-open-custom-modal">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span>Entri Mandiri</span>
+            <span>Tambah Menu Sendiri</span>
           </button>
         </div>
 
@@ -292,13 +292,13 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL: ENTRI PANGAN MANDIRI ==================== -->
+  <!-- ==================== MODAL: TAMBAH MENU SENDIRI ==================== -->
   <div class="modal-layer" id="modal-custom-food">
     <div class="modal-dialog" role="dialog" aria-modal="true">
       <div class="dialog-header">
         <div>
-          <h2 class="dialog-title">Entri Pangan Mandiri</h2>
-          <span class="dialog-subtitle">Tambahkan makanan yang belum tersedia di katalog</span>
+          <h2 class="dialog-title">Tambah Menu Sendiri</h2>
+          <span class="dialog-subtitle">Catat makanan yang belum ada di daftar pilihan</span>
         </div>
         <button type="button" class="btn-close-dialog" id="btn-close-custom" aria-label="Tutup">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -313,7 +313,7 @@
               <input type="text" id="custom-nama" class="field-control" placeholder="Contoh: Buah Kiwi Hijau" required>
             </div>
             <div class="field-item">
-              <label class="field-label" for="custom-kategori">Kelompok Pangan</label>
+              <label class="field-label" for="custom-kategori">Kategori Makanan</label>
               <select id="custom-kategori" class="field-control">
                 <option value="buah">Buah-buahan</option>
                 <option value="sayur">Sayuran</option>
@@ -331,7 +331,7 @@
               <input type="text" id="custom-porsi" class="field-control" placeholder="1 buah sedang (100g)" value="1 porsi">
             </div>
             <div class="field-item">
-              <label class="field-label" for="custom-kalori">Nilai Kalori (kkal) *</label>
+              <label class="field-label" for="custom-kalori">Kalori (kkal) *</label>
               <input type="number" id="custom-kalori" class="field-control" placeholder="Contoh: 61" required min="0">
             </div>
           </div>
@@ -349,7 +349,7 @@
 
           <div class="field-item">
             <label class="field-label" for="custom-khasiat">Khasiat & Manfaat Kesehatan *</label>
-            <textarea id="custom-khasiat" class="field-control textarea" rows="2" placeholder="Uraikan khasiat utama bagi kesehatan tubuh..." required></textarea>
+            <textarea id="custom-khasiat" class="field-control textarea" rows="2" placeholder="Ceritakan manfaat sehatnya (misal: kaya vitamin C untuk imun)..." required></textarea>
           </div>
 
           <div class="field-grid">
@@ -364,14 +364,14 @@
           </div>
 
           <div class="field-item">
-            <label class="field-label" for="custom-catatan">Catatan / Batas Konsumsi</label>
+            <label class="field-label" for="custom-catatan">Catatan / Hal yang Perlu Dibatasi</label>
             <input type="text" id="custom-catatan" class="field-control" placeholder="Contoh: Aman untuk konsumsi harian">
           </div>
         </div>
 
         <div class="dialog-footer">
           <button type="button" class="btn-plain" id="btn-cancel-custom">Batal</button>
-          <button type="submit" class="btn-solid-primary">Simpan ke Pustaka</button>
+          <button type="submit" class="btn-solid-primary">Simpan Menu</button>
         </div>
       </form>
     </div>
