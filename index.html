@@ -3,331 +3,382 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gizipedia - Aplikasi Cek Gizi & Pelacak Makanan Harian. Cek khasiat buah dan makanan, serta hitung perbandingan kalori, gizi baik, dan zat yang perlu dibatasi.">
-  <title>Gizipedia - Cek Gizi & Pelacak Makanan Harian</title>
+  <meta name="description" content="Gizipedia - Ensiklopedia khasiat pangan dan kalkulator nutrisi harian terverifikasi TKPI Kemenkes & USDA.">
+  <title>Gizipedia — Pustaka Gizi & Pola Makan Sehat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="app-container">
-    <!-- ==================== HEADER / NAVBAR ==================== -->
-    <header class="navbar">
-      <div class="brand-wrapper">
-        <div class="brand-icon-box">🥗</div>
-        <div>
-          <h1 class="brand-title">Gizi<span>pedia</span></h1>
-          <p class="brand-subtitle">Cek Khasiat & Kalkulator Nutrisi Sehat Harian</p>
+  <div class="app-layout">
+    <!-- ==================== HEADER ==================== -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12c0-2.228.729-4.286 1.96-5.95"/>
+              <path d="M12 6v6l4 2"/>
+              <path d="M16 2.5a5 5 0 0 1 5 5"/>
+            </svg>
+          </div>
+          <div>
+            <span class="brand-name">Gizi<strong>pedia</strong></span>
+            <span class="brand-tag">Pustaka & Kalkulator Pangan</span>
+          </div>
         </div>
-      </div>
-      <div class="nav-actions">
-        <div class="date-badge" id="current-date-badge">
-          📅 <span id="current-date-text">Hari Ini</span>
+
+        <div class="header-meta">
+          <div class="date-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span id="current-date-text">Selasa, 15 September</span>
+          </div>
+          <button type="button" class="btn-ghost" id="btn-reset-diary" title="Mulai catatan baru">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            <span>Reset Hari Ini</span>
+          </button>
         </div>
-        <button type="button" class="btn-secondary" id="btn-reset-diary" title="Mulai catatan baru untuk hari ini">
-          🔄 Reset Hari Ini
-        </button>
       </div>
     </header>
 
-    <!-- ==================== DAILY DASHBOARD SUMMARY ==================== -->
-    <section class="dashboard-grid" aria-label="Ringkasan Nutrisi Harian">
-      
-      <!-- Card 1: Kalori Harian -->
-      <article class="stat-card calorie-card">
-        <div class="stat-header">
-          <span class="stat-label">Total Kalori Harian</span>
-          <span class="stat-icon">🔥</span>
-        </div>
-        <div class="stat-value">
-          <span id="total-calories">0</span>
-          <span class="stat-unit">/ 2000 kkal</span>
-        </div>
-        <div class="progress-track" title="Persentase terhadap anjuran 2000 kkal">
-          <div class="progress-fill" id="calorie-progress-bar" style="width: 0%;"></div>
-        </div>
-        <div class="stat-subtext">
-          <span id="calorie-percent-text">0% dari target</span>
-          <span id="calorie-status-badge" class="nutrient-tag amber">Bagus</span>
-        </div>
-      </article>
+    <!-- ==================== HERO NUTRITION OVERVIEW ==================== -->
+    <section class="overview-section" aria-label="Ringkasan Nutrisi Harian">
+      <div class="overview-grid">
+        
+        <!-- Main Calorie Dial & Progress -->
+        <div class="overview-card hero-energy">
+          <div class="card-caption">
+            <span class="caption-title">Asupan Energi Harian</span>
+            <span class="badge-status in-limit" id="calorie-status-badge">Ideal</span>
+          </div>
+          
+          <div class="energy-display">
+            <div class="energy-main">
+              <span class="energy-num" id="total-calories">0</span>
+              <span class="energy-denom">/ 2.000 <small>kkal</small></span>
+            </div>
+            <div class="energy-remaining" id="calorie-remaining-text">Tersisa 2.000 kkal</div>
+          </div>
 
-      <!-- Card 2: Gizi Baik (Khasiat & Makro) -->
-      <article class="stat-card good-card">
-        <div class="stat-header">
-          <span class="stat-label">Gizi Baik Dikonsumsi</span>
-          <span class="stat-icon">🌱</span>
-        </div>
-        <div class="nutrient-tags">
-          <span class="nutrient-tag green">Protein: <strong id="total-protein">0</strong> g</span>
-          <span class="nutrient-tag green">Serat: <strong id="total-fiber">0</strong> g</span>
-        </div>
-        <div class="stat-subtext" style="margin-top: 14px;">
-          <span>Ragam Buah & Khasiat:</span>
-          <strong id="total-benefits-count" style="color: var(--good-green-text);">0 Makanan Sehat</strong>
-        </div>
-      </article>
+          <div class="custom-progress-rail">
+            <div class="progress-bar-indicator" id="calorie-progress-bar" style="width: 0%;"></div>
+          </div>
 
-      <!-- Card 3: Gizi Perhatian ("Jelek" / Perlu Dibatasi) -->
-      <article class="stat-card bad-card">
-        <div class="stat-header">
-          <span class="stat-label">Perlu Dibatasi (Perhatian)</span>
-          <span class="stat-icon">⚠️</span>
+          <div class="card-footnote">
+            <span id="calorie-percent-text">0% dari batas anjuran harian</span>
+            <span class="ref-tag">Standar AKG Kemenkes</span>
+          </div>
         </div>
-        <div class="nutrient-tags">
-          <span class="nutrient-tag rose" title="Batas anjuran Kemenkes: Maks 50g/hari">Gula: <strong id="total-sugar">0</strong> g</span>
-          <span class="nutrient-tag rose" title="Batas anjuran Kemenkes: Maks 17g/hari">Lemak Jenuh: <strong id="total-sat-fat">0</strong> g</span>
-          <span class="nutrient-tag amber" title="Batas anjuran Kemenkes: Maks 2000mg/hari">Natrium: <strong id="total-sodium">0</strong> mg</span>
-        </div>
-        <div class="stat-subtext" style="margin-top: 14px;">
-          <span id="bad-nutrients-warning">Status aman terkendali</span>
-        </div>
-      </article>
 
-      <!-- Card 4: Insight / Evaluasi Kesehatan -->
-      <article class="stat-card insight-card">
-        <div class="stat-header">
-          <span class="stat-label">Saran & Evaluasi Sehat</span>
-          <span class="stat-icon">💡</span>
-        </div>
-        <p class="insight-text" id="health-insight-message">
-          Pilih makanan dari katalog di sebelah kanan untuk mencatat apa yang Anda makan hari ini!
-        </p>
-      </article>
+        <!-- Nutrient Balance (Good vs Moderation) -->
+        <div class="overview-card nutrient-matrix">
+          <div class="card-caption">
+            <span class="caption-title">Keseimbangan Zat Gizi</span>
+            <span class="item-count-indicator" id="total-benefits-count">0 pangan sehat</span>
+          </div>
 
+          <!-- Positive Nutrients -->
+          <div class="macro-row positive">
+            <div class="macro-cell">
+              <span class="macro-label">Protein</span>
+              <span class="macro-val"><strong id="total-protein">0.0</strong> <small>g</small></span>
+              <div class="mini-bar"><div id="bar-protein" style="width: 0%;"></div></div>
+            </div>
+            <div class="macro-cell">
+              <span class="macro-label">Serat Alami</span>
+              <span class="macro-val"><strong id="total-fiber">0.0</strong> <small>g</small></span>
+              <div class="mini-bar"><div id="bar-fiber" style="width: 0%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Moderation Nutrients -->
+          <div class="moderation-strip">
+            <div class="mod-item">
+              <span class="mod-name">Gula</span>
+              <span class="mod-val" id="total-sugar">0.0g</span>
+              <span class="mod-limit">Maks 50g</span>
+            </div>
+            <div class="mod-item">
+              <span class="mod-name">Lemak Jenuh</span>
+              <span class="mod-val" id="total-sat-fat">0.0g</span>
+              <span class="mod-limit">Maks 17g</span>
+            </div>
+            <div class="mod-item">
+              <span class="mod-name">Natrium</span>
+              <span class="mod-val" id="total-sodium">0mg</span>
+              <span class="mod-limit">Maks 2000mg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clinical / Health Feedback Note -->
+        <div class="overview-card clinical-note">
+          <div class="card-caption">
+            <span class="caption-title">Catatan & Telaah Gizi</span>
+            <span class="clinical-dot"></span>
+          </div>
+          <div class="note-body">
+            <p id="health-insight-message">
+              Belum ada makanan yang dicatat hari ini. Telusuri pustaka di bawah untuk melihat khasiat pangan dan mencatat konsumsi Anda.
+            </p>
+          </div>
+          <div class="note-warning-strip" id="bad-nutrients-warning">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            <span>Kadar gula & lemak terkendali.</span>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <!-- ==================== MOBILE VIEW SWITCHER ==================== -->
-    <div class="mobile-tab-bar" id="mobile-tab-switcher">
-      <button type="button" class="mobile-tab-btn active" data-tab="catalog">
-        <span>🍽️ Katalog Makanan</span>
+    <!-- ==================== MOBILE NAVIGATION TABS ==================== -->
+    <div class="mobile-segmented-nav" id="mobile-tab-switcher">
+      <button type="button" class="segmented-btn active" data-tab="catalog">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Katalog Pangan</span>
       </button>
-      <button type="button" class="mobile-tab-btn" data-tab="diary">
-        <span>📋 Catatan Hari Ini</span>
-        <span class="mobile-badge-count" id="mobile-diary-badge">0</span>
+      <button type="button" class="segmented-btn" data-tab="diary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        <span>Catatan Konsumsi</span>
+        <span class="count-pill" id="mobile-diary-badge">0</span>
       </button>
     </div>
 
-    <!-- ==================== MAIN 2-COLUMN LAYOUT ==================== -->
-    <main class="main-layout" id="main-content-layout">
+    <!-- ==================== MAIN WORKSPACE ==================== -->
+    <main class="app-workspace" id="main-content-layout">
       
-      <!-- KOLOM KIRI: CATATAN HARIAN -->
-      <aside class="diary-panel" id="diary-section-panel">
-        <div class="panel-header">
-          <h2 class="panel-title">
-            <span>📋 Dimakan Hari Ini</span>
-            <span class="badge-count" id="diary-item-count">0 item</span>
-          </h2>
-        </div>
+      <!-- LOG KONSUMSI / JURNAL HARIAN -->
+      <aside class="diary-column" id="diary-section-panel">
+        <div class="column-card">
+          <div class="column-header">
+            <div>
+              <h2 class="column-title">Konsumsi Hari Ini</h2>
+              <p class="column-desc">Pangan yang telah Anda makan</p>
+            </div>
+            <span class="chip-count" id="diary-item-count">0 item</span>
+          </div>
 
-        <div class="diary-list" id="diary-items-container">
-          <!-- Item makanan harian dirender lewat app.js -->
+          <div class="diary-item-stream" id="diary-items-container">
+            <!-- Rendered by app.js -->
+          </div>
         </div>
       </aside>
 
-      <!-- KOLOM KANAN: KATALOG MAKANAN & KHASIAT -->
-      <section class="catalog-panel" id="catalog-section-panel">
+      <!-- KATALOG PANGAN / PUSTAKA GIZI -->
+      <section class="catalog-column" id="catalog-section-panel">
         
-        <!-- Toolbar: Search & Tambah Makanan -->
-        <div class="catalog-toolbar">
-          <div class="search-box-wrapper">
-            <span class="search-icon">🔍</span>
+        <!-- Search & Custom Action Bar -->
+        <div class="search-command-bar">
+          <div class="input-container">
+            <svg class="search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
             <input 
               type="text" 
               id="food-search-input" 
-              class="search-input" 
-              placeholder="Cari makanan atau khasiat (misal: apel, kolesterol, vitamin c)..."
+              class="command-input" 
+              placeholder="Cari pangan atau khasiat (misal: apel, kolesterol, jantung, vit c)..."
               autocomplete="off"
             >
           </div>
-          <button type="button" class="btn-primary" id="btn-open-custom-modal">
-            <span>+ Tambah Makanan</span>
+
+          <button type="button" class="btn-solid" id="btn-open-custom-modal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Entri Mandiri</span>
           </button>
         </div>
 
-        <!-- Filter Kategori Kancing (Pills) -->
-        <nav class="category-pills" id="category-filter-pills" aria-label="Kategori Makanan">
-          <button type="button" class="pill-btn active" data-category="all">Semua</button>
-          <button type="button" class="pill-btn" data-category="buah">🍎 Buah</button>
-          <button type="button" class="pill-btn" data-category="sayur">🥦 Sayur</button>
-          <button type="button" class="pill-btn" data-category="lauk">🍗 Lauk</button>
-          <button type="button" class="pill-btn" data-category="pokok">🍚 Pokok</button>
-          <button type="button" class="pill-btn" data-category="camilan">🍟 Camilan</button>
-          <button type="button" class="pill-btn" data-category="minuman">🥤 Minuman</button>
+        <!-- Category Horizontal Filter -->
+        <nav class="category-nav" id="category-filter-pills">
+          <button type="button" class="category-chip active" data-category="all">Semua Pangan</button>
+          <button type="button" class="category-chip" data-category="buah">Buah-buahan</button>
+          <button type="button" class="category-chip" data-category="sayur">Sayuran</button>
+          <button type="button" class="category-chip" data-category="lauk">Lauk & Protein</button>
+          <button type="button" class="category-chip" data-category="pokok">Makanan Pokok</button>
+          <button type="button" class="category-chip" data-category="camilan">Camilan & Kudapan</button>
+          <button type="button" class="category-chip" data-category="minuman">Minuman</button>
         </nav>
 
-        <!-- Quick Filter Tags (Nutrisi Khusus) -->
-        <div class="quick-tags-wrapper" id="quick-filter-tags">
-          <span class="quick-tag-label">Filter Cepat:</span>
-          <button type="button" class="quick-tag-btn" data-filter="low-cal">⚡ Rendah Kalori (&lt;100 kkal)</button>
-          <button type="button" class="quick-tag-btn" data-filter="high-protein">💪 Tinggi Protein (&gt;10g)</button>
-          <button type="button" class="quick-tag-btn" data-filter="high-fiber">🌾 Tinggi Serat (&gt;3g)</button>
+        <!-- Quick Functional Filter -->
+        <div class="functional-filter-row" id="quick-filter-tags">
+          <span class="filter-lead">Filter Cepat:</span>
+          <button type="button" class="sub-chip" data-filter="low-cal">Rendah Kalori (&lt;100 kkal)</button>
+          <button type="button" class="sub-chip" data-filter="high-protein">Tinggi Protein (&gt;10g)</button>
+          <button type="button" class="sub-chip" data-filter="high-fiber">Tinggi Serat (&gt;3g)</button>
         </div>
 
-        <!-- Grid Kartu Makanan -->
-        <div class="food-grid" id="food-cards-grid">
-          <!-- Kartu makanan dirender lewat app.js -->
+        <!-- Food Catalogue Stream -->
+        <div class="catalogue-grid" id="food-cards-grid">
+          <!-- Rendered by app.js -->
         </div>
 
       </section>
 
     </main>
 
-    <!-- ==================== MOBILE FLOATING SUMMARY BAR ==================== -->
-    <div class="mobile-floating-bar" id="mobile-floating-bar">
-      <div class="mobile-floating-info">
-        <div class="floating-cal"><span id="floating-total-cal">0</span> kkal</div>
-        <div class="floating-sub" id="floating-item-sub">0 item dicatat</div>
+    <!-- ==================== MOBILE FLOATING STATUS BAR ==================== -->
+    <div class="mobile-floating-dock" id="mobile-floating-bar">
+      <div class="dock-summary">
+        <div class="dock-val"><strong id="floating-total-cal">0</strong> kkal</div>
+        <div class="dock-sub" id="floating-item-sub">0 item tercatat</div>
       </div>
-      <button type="button" class="btn-floating-view" id="btn-floating-view-diary">
-        Lihat Catatan 📋
+      <button type="button" class="dock-action-btn" id="btn-floating-view-diary">
+        Buka Catatan
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
+
   </div>
 
-  <!-- ==================== MODAL DETAIL KHASIAT MAKANAN ==================== -->
-  <div class="modal-backdrop" id="modal-food-detail">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-food-name">
-      <header class="modal-header">
-        <div class="modal-title-group">
-          <span class="modal-icon" id="modal-food-icon">🍎</span>
+  <!-- ==================== MODAL: DETAIL KHASIAT PANGAN ==================== -->
+  <div class="modal-layer" id="modal-food-detail">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-food-name">
+      <div class="dialog-header">
+        <div class="dialog-title-group">
+          <div class="dialog-food-icon" id="modal-food-icon">🍎</div>
           <div>
-            <h2 class="modal-title" id="modal-food-name">Nama Makanan</h2>
-            <span class="food-portion" id="modal-food-portion">1 porsi</span>
+            <h2 class="dialog-title" id="modal-food-name">Nama Pangan</h2>
+            <span class="dialog-subtitle" id="modal-food-portion">1 porsi</span>
           </div>
         </div>
-        <button type="button" class="btn-close-modal" id="btn-close-detail" aria-label="Tutup modal">&times;</button>
-      </header>
+        <button type="button" class="btn-close-dialog" id="btn-close-detail" aria-label="Tutup">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
 
-      <div class="modal-body">
-        <!-- Makronutrisi Utama -->
-        <div class="macro-grid">
-          <div class="macro-card">
-            <div class="macro-val" id="modal-macro-cal">0</div>
-            <div class="macro-lbl">Kalori (kkal)</div>
+      <div class="dialog-body">
+        <!-- Macro Breakdown Numbers -->
+        <div class="dialog-metric-strip">
+          <div class="metric-box">
+            <span class="box-num" id="modal-macro-cal">0</span>
+            <span class="box-lbl">Kalori (kkal)</span>
           </div>
-          <div class="macro-card">
-            <div class="macro-val" id="modal-macro-protein">0g</div>
-            <div class="macro-lbl">Protein</div>
+          <div class="metric-box">
+            <span class="box-num" id="modal-macro-protein">0g</span>
+            <span class="box-lbl">Protein</span>
           </div>
-          <div class="macro-card">
-            <div class="macro-val" id="modal-macro-fiber">0g</div>
-            <div class="macro-lbl">Serat</div>
-          </div>
-        </div>
-
-        <!-- Khasiat & Gizi Baik -->
-        <div class="detail-box good">
-          <h3 class="detail-box-title">🌿 Khasiat & Gizi Baik:</h3>
-          <p class="detail-box-desc" id="modal-good-desc">Deskripsi khasiat...</p>
-          <div class="nutrient-tags" id="modal-vitamins-tags" style="margin-top: 10px;">
-            <!-- Tag vitamin dirender via JS -->
+          <div class="metric-box">
+            <span class="box-num" id="modal-macro-fiber">0g</span>
+            <span class="box-lbl">Serat Pangan</span>
           </div>
         </div>
 
-        <!-- Zat Perhatian / Kalori ("Jelek") -->
-        <div class="detail-box caution">
-          <h3 class="detail-box-title">⚠️ Hal yang Perlu Diperhatikan:</h3>
-          <p class="detail-box-desc" id="modal-bad-desc">Deskripsi zat perhatian...</p>
-          <div class="nutrient-tags" style="margin-top: 8px;">
-            <span class="nutrient-tag rose" id="modal-tag-sugar">Gula: 0g</span>
-            <span class="nutrient-tag rose" id="modal-tag-satfat">Lemak Jenuh: 0g</span>
-            <span class="nutrient-tag amber" id="modal-tag-sodium">Natrium: 0mg</span>
+        <!-- Khasiat Medis & Gizi Positif -->
+        <div class="info-section positive-block">
+          <div class="section-badge">Khasiat & Kandungan Baik</div>
+          <p class="section-paragraph" id="modal-good-desc">Uraian khasiat kesehatan...</p>
+          <div class="vitamin-chips" id="modal-vitamins-tags"></div>
+        </div>
+
+        <!-- Hal yang Perlu Diwaspadai -->
+        <div class="info-section caution-block">
+          <div class="section-badge caution">Zat Perhatian / Anjuran Batas</div>
+          <p class="section-paragraph" id="modal-bad-desc">Uraian batasan konsumsi...</p>
+          <div class="caution-metrics">
+            <span class="caution-tag" id="modal-tag-sugar">Gula: 0g</span>
+            <span class="caution-tag" id="modal-tag-satfat">Lemak Jenuh: 0g</span>
+            <span class="caution-tag" id="modal-tag-sodium">Natrium: 0mg</span>
           </div>
         </div>
       </div>
 
-      <footer class="modal-footer">
-        <button type="button" class="btn-secondary" id="btn-cancel-detail">Tutup</button>
-        <button type="button" class="btn-primary" id="btn-eat-from-modal">+ Tambah ke Hari Ini</button>
-      </footer>
+      <div class="dialog-footer">
+        <button type="button" class="btn-plain" id="btn-cancel-detail">Kembali</button>
+        <button type="button" class="btn-solid-primary" id="btn-eat-from-modal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Catat Sebagai Konsumsi
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL TAMBAH MAKANAN KUSTOM ==================== -->
-  <div class="modal-backdrop" id="modal-custom-food">
-    <div class="modal-content" role="dialog" aria-modal="true">
-      <header class="modal-header">
-        <div class="modal-title-group">
-          <span class="modal-icon">➕</span>
-          <h2 class="modal-title">Tambah Makanan Sendiri</h2>
+  <!-- ==================== MODAL: ENTRI PANGAN MANDIRI ==================== -->
+  <div class="modal-layer" id="modal-custom-food">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <div class="dialog-header">
+        <div>
+          <h2 class="dialog-title">Entri Pangan Mandiri</h2>
+          <span class="dialog-subtitle">Tambahkan makanan yang belum tersedia di katalog</span>
         </div>
-        <button type="button" class="btn-close-modal" id="btn-close-custom" aria-label="Tutup modal">&times;</button>
-      </header>
+        <button type="button" class="btn-close-dialog" id="btn-close-custom" aria-label="Tutup">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
 
       <form id="form-custom-food">
-        <div class="modal-body">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="custom-nama">Nama Makanan *</label>
-              <input type="text" id="custom-nama" class="form-input" placeholder="Contoh: Buah Kiwi Segar" required>
+        <div class="dialog-body">
+          <div class="field-grid">
+            <div class="field-item">
+              <label class="field-label" for="custom-nama">Nama Makanan *</label>
+              <input type="text" id="custom-nama" class="field-control" placeholder="Contoh: Buah Kiwi Hijau" required>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="custom-kategori">Kategori</label>
-              <select id="custom-kategori" class="form-select">
-                <option value="buah">🍎 Buah-buahan</option>
-                <option value="sayur">🥦 Sayuran</option>
-                <option value="lauk">🍗 Lauk & Protein</option>
-                <option value="pokok">🍚 Makanan Pokok</option>
-                <option value="camilan">🍟 Camilan</option>
-                <option value="minuman">🥤 Minuman</option>
+            <div class="field-item">
+              <label class="field-label" for="custom-kategori">Kelompok Pangan</label>
+              <select id="custom-kategori" class="field-control">
+                <option value="buah">Buah-buahan</option>
+                <option value="sayur">Sayuran</option>
+                <option value="lauk">Lauk Pauk & Protein</option>
+                <option value="pokok">Makanan Pokok</option>
+                <option value="camilan">Camilan & Kudapan</option>
+                <option value="minuman">Minuman</option>
               </select>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="custom-porsi">Takaran Porsi</label>
-              <input type="text" id="custom-porsi" class="form-input" placeholder="Contoh: 1 buah sedang (100g)" value="1 porsi">
+          <div class="field-grid">
+            <div class="field-item">
+              <label class="field-label" for="custom-porsi">Takaran Porsi</label>
+              <input type="text" id="custom-porsi" class="field-control" placeholder="1 buah sedang (100g)" value="1 porsi">
             </div>
-            <div class="form-group">
-              <label class="form-label" for="custom-kalori">Kalori (kkal) *</label>
-              <input type="number" id="custom-kalori" class="form-input" placeholder="Contoh: 61" required min="0">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="custom-protein">Protein (gram)</label>
-              <input type="number" id="custom-protein" class="form-input" step="0.1" value="1.0" min="0">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="custom-serat">Serat (gram)</label>
-              <input type="number" id="custom-serat" class="form-input" step="0.1" value="3.0" min="0">
+            <div class="field-item">
+              <label class="field-label" for="custom-kalori">Nilai Kalori (kkal) *</label>
+              <input type="number" id="custom-kalori" class="field-control" placeholder="Contoh: 61" required min="0">
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="custom-khasiat">Khasiat & Gizi Baik *</label>
-            <textarea id="custom-khasiat" class="form-textarea" rows="2" placeholder="Jelaskan manfaat kesehatannya (misal: sangat kaya vitamin C dan serat untuk pencernaan...)" required></textarea>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="custom-gula">Gula (gram)</label>
-              <input type="number" id="custom-gula" class="form-input" step="0.1" value="9.0" min="0">
+          <div class="field-grid">
+            <div class="field-item">
+              <label class="field-label" for="custom-protein">Kandungan Protein (g)</label>
+              <input type="number" id="custom-protein" class="field-control" step="0.1" value="1.0" min="0">
             </div>
-            <div class="form-group">
-              <label class="form-label" for="custom-lemakjenuh">Lemak Jenuh (gram)</label>
-              <input type="number" id="custom-lemakjenuh" class="form-input" step="0.1" value="0.1" min="0">
+            <div class="field-item">
+              <label class="field-label" for="custom-serat">Kandungan Serat (g)</label>
+              <input type="number" id="custom-serat" class="field-control" step="0.1" value="2.5" min="0">
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="custom-catatan">Catatan / Hal yang Perlu Dibatasi</label>
-            <input type="text" id="custom-catatan" class="form-input" placeholder="Contoh: Gula alami buah, aman bila dikonsumsi wajar">
+          <div class="field-item">
+            <label class="field-label" for="custom-khasiat">Khasiat & Manfaat Kesehatan *</label>
+            <textarea id="custom-khasiat" class="field-control textarea" rows="2" placeholder="Uraikan khasiat utama bagi kesehatan tubuh..." required></textarea>
+          </div>
+
+          <div class="field-grid">
+            <div class="field-item">
+              <label class="field-label" for="custom-gula">Kadar Gula (g)</label>
+              <input type="number" id="custom-gula" class="field-control" step="0.1" value="8.0" min="0">
+            </div>
+            <div class="field-item">
+              <label class="field-label" for="custom-lemakjenuh">Lemak Jenuh (g)</label>
+              <input type="number" id="custom-lemakjenuh" class="field-control" step="0.1" value="0.1" min="0">
+            </div>
+          </div>
+
+          <div class="field-item">
+            <label class="field-label" for="custom-catatan">Catatan / Batas Konsumsi</label>
+            <input type="text" id="custom-catatan" class="field-control" placeholder="Contoh: Aman untuk konsumsi harian">
           </div>
         </div>
 
-        <footer class="modal-footer">
-          <button type="button" class="btn-secondary" id="btn-cancel-custom">Batal</button>
-          <button type="submit" class="btn-primary">Simpan ke Daftar</button>
-        </footer>
+        <div class="dialog-footer">
+          <button type="button" class="btn-plain" id="btn-cancel-custom">Batal</button>
+          <button type="submit" class="btn-solid-primary">Simpan ke Pustaka</button>
+        </div>
       </form>
     </div>
   </div>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toast-container"></div>
+  <!-- Toast Notification System -->
+  <div class="toast-stack" id="toast-container"></div>
 
   <!-- Scripts -->
   <script src="data.js"></script>
