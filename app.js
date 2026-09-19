@@ -1,7 +1,3 @@
-/**
- * Gizipedia — App Logic (Human-Crafted Editorial Experience)
- * Fitur: Pustaka Pangan, Khasiat Gizi, Log Konsumsi Harian, Keseimbangan Gizi & Kalori
- */
 
 (function () {
   'use strict';
